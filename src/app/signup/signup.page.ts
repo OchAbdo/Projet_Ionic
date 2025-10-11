@@ -4,6 +4,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 /* import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'; */
 import { IonicModule } from '@ionic/angular';
 import { Photo } from '../services/photo';
+import { image } from 'ionicons/icons';
+import { Crecompte } from '../services/confcompte';
 
 @Component({
   selector: 'app-signup',
@@ -14,19 +16,31 @@ import { Photo } from '../services/photo';
 })
 export class SignupPage implements OnInit {
 
-  private photoSer = inject(Photo); 
-  photo : string | undefined;
+  private photoSer = inject(Photo);
+  private logi = inject(Crecompte);
+  photo: string | undefined;
   ngOnInit() {
-    
+
+  }
+  async prendrephoto() {
+    this.photo = await this.photoSer.takePicture()
   }
 
-  async prendrephoto(){
-   this.photo = await this.photoSer.takePicture()
-  }
 
-  addUser(inscrption : NgForm)
-  {
-    console.log(inscrption.value);
-  }
+
+   async addUser(inscrption: NgForm) {
+    try {
+
+      const user = await this.logi.signup(inscrption.value , this.photo);
+      console.log('Inscription réussie', user);
+      //const token = await this.logi.getToken();
+      //console.log(token);
+      
+    } catch (err) {
+        console.error('Erreur', err);
+    }
+  } 
+
+  
 
 }
