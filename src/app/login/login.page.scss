@@ -1,0 +1,81 @@
+
+.login-bg {
+  --background: #000000; /* fond noir */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-container {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  color: #fff;
+
+  ion-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 40px;
+    font-weight: bold;
+  }
+}
+
+.input-item {
+  --background: #2c2f3a; /* champs gris foncé */
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  ion-label {
+    color: #fff;
+    font-size: 14px;
+  }
+
+  ion-input {
+    color: #fff;
+  }
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 20px;
+
+  a {
+    font-size: 13px;
+    color: #ccc;
+    text-decoration: none;
+  }
+}
+
+.login-button {
+  --background: #007bff; /* bleu */
+  color: white;
+  --border-radius: 6px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 25px;
+  color: #fff;
+
+  p {
+    font-size: 14px;
+  }
+
+  a {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+
+
+.error {
+  color: red;
+  font-size: 0.7em;
+}

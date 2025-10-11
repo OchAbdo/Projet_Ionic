@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Inscrption</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding register-bg">
+
+  <!-- Titre -->
+  <div class="title-container">
+    <h1>Créer un compte</h1>
+  </div>
+
+  <!-- Formulaire -->
+  <form #inscrption="ngForm">
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Nom</ion-label>
+      <ion-input type="text" placeholder="Votre nom" name="firstname" #firstname="ngModel" ngModel required></ion-input>
+      @if(firstname.invalid && firstname.touched){
+      <div class="error">
+        Donne votre Nom!
+      </div>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Prénom</ion-label>
+      <ion-input type="text" placeholder="Votre prénom" name="lastname" #lastname="ngModel" ngModel
+        required></ion-input>
+      @if(lastname.invalid && lastname.touched){
+      <div class="error">
+        Donne votre Prénom!
+      </div>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Âge</ion-label>
+      <ion-input type="number" placeholder="Votre âge" name="age" #age="ngModel" ngModel required max="99"
+        min="18"></ion-input>
+      @if(age.invalid && age.touched){
+      <div class="error">
+        Donne votre Age entre 18 et 99!
+      </div>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" placeholder="Votre email" name="email" #email="ngModel" ngModel required
+        email></ion-input>
+      @if(email.invalid && email.touched){
+      <div class="error">
+        Format Email invalide (xxx@xxx.xxx)!
+      </div>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Mot de passe</ion-label>
+      <ion-input type="password" placeholder="Votre mot de passe" name="password" #password="ngModel" ngModel required
+        minlength="8"></ion-input>
+      @if(password.invalid && password.touched){
+      <div class="error">
+        Minimum 8 caractères !
+      </div>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Confirmer mot de passe</ion-label>
+      <ion-input type="password" placeholder="Confirmez votre mot de passe" name="passwordconf" #passwordconf="ngModel"
+        ngModel required></ion-input>
+      @if(password.value != passwordconf.value && passwordconf.touched){
+      <div class="error">
+        Mot de Passe Confirmer different Mot de Passe !
+      </div>
+      }
+    </ion-item>
+
+    <!-- Zone Upload Image -->
+    <div class="upload-card">
+      <div class="preview" id="preview">
+        <ion-img [src]="photo"></ion-img>
+      </div>
+      <button (click)="prendrephoto()" expand="block" class="register-button" color="primary">Prendre une image</button>
+    </div>
+
+
+    <!-- Bouton inscription -->
+    <ion-button expand="block" class="register-button" [disabled]="inscrption.invalid" (click)="addUser(inscrption)">
+      S’inscrire
+    </ion-button>
+  </form>
+
+</ion-content>

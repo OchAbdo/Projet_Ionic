@@ -1,0 +1,102 @@
+.register-bg {
+  --background: #000000;
+  /* fond noir */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-container {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.input-item {
+  --background: #2c2f3a;
+  /* champs gris foncé */
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  ion-label {
+    color: #fff;
+    font-size: 14px;
+  }
+
+  ion-input {
+    color: #fff;
+  }
+}
+
+.upload-card {
+  width: 200px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px dashed #555;
+  border-radius: 12px;
+  text-align: center;
+  background: #1e1e1e;
+  color: #aaa;
+}
+
+.preview {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  background: #2c2c2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.preview ion-icon {
+  font-size: 64px;
+  color: #666;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-btn:hover {
+  background: #007bff;
+}
+
+
+.add-photo-btn {
+  --background: #007bff;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+/* Bouton inscription */
+.register-button {
+  --background: #007bff;
+  /* bleu */
+  color: white;
+  --border-radius: 6px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 0.7em;
+}

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button default-href="/"></ion-back-button>
+  </ion-buttons>
+  <ion-title>Se Connecter</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding login-bg">
+
+  <!-- Logo + titre -->
+  <div class="logo-container">
+    <!-- <ion-icon name="film-outline"></ion-icon> -->
+    <h1><strong>CinShare</strong></h1>
+  </div>
+
+  <!-- Formulaire -->
+  <form #loginf="ngForm" >
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Adresse email</ion-label>
+      <ion-input #email="ngModel" type="email" name="email" ngModel placeholder="Votre adresse email" required email></ion-input>
+      @if(email.invalid && email.touched){
+      <div class="error">
+        Format Email invalide (xxx@xxx.xxx)!
+      </div>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Mot de passe</ion-label>
+      <ion-input #password="ngModel" name="password" ngModel  required minlength="8" type="password" placeholder="Votre mot de passe"></ion-input>
+      @if(password.invalid && password.touched){
+      <div class="error">
+        Minimum 8 caractères !
+      </div>
+      }
+    </ion-item>
+
+    <div class="forgot-password">
+      <a href="/resetpassword">Mot de passe oublié ?</a>
+    </div>
+
+    <ion-button expand="block" [disabled]="loginf.invalid" class="login-button" (click)="authcleint(loginf)">
+      Se connecter
+    </ion-button>
+  </form>
+
+  <!-- Lien inscription -->
+  <div class="signup-link">
+    <p>Vous n'avez pas de compte ?  
+      <a href="/signup">S’inscrire</a>
+    </p>
+  </div>
+
+</ion-content>
+
