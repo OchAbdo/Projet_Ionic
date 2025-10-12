@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, getIdToken, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from '@angular/fire/auth';
-import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { Auth, createUserWithEmailAndPassword, getIdToken, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from '@angular/fire/auth';
+import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -30,7 +30,8 @@ export class Crecompte {
       prenom: userInfo.lastname,
       age: userInfo.age,
       email: userInfo.email,
-      image: userInfo.image+"",
+      image: image,
+      role : "user",
       createdAt: new Date(),
     });
 
@@ -52,6 +53,41 @@ export class Crecompte {
 
   async resetPassword(obj: any) {
       await sendPasswordResetEmail(this.auth, obj.email);
+  }
+
+  isAuthenticated(): Promise<boolean> {
+    return new Promise((resolve) => {
+      onAuthStateChanged(this.auth, (user) => {
+        if(user == null)
+          resolve(false);
+        else
+          resolve(true); // true si user existe, false sinon
+      });
+    });
+  }
+
+  async getUserData(): Promise<any | null> {
+    const user = this.auth.currentUser; // récupère le user Firebase connecté
+    if (!user) return null;
+
+    const docRef = doc(this.firestore, 'users', user.uid); // document par UID
+    const snap = await getDoc(docRef);
+
+    if (snap.exists()) {
+      return snap.data; // retourne les données du user
+    }
+    return null; // si aucun document trouvé
+  }
+
+
+  isAdmin(): Promise<boolean>{
+    return new Promise(async (rslt) =>{
+      const user = await this.getUserData();
+      if( user.role == "admin")
+        rslt(true);
+      else
+        rslt(false) ;
+      })
   }
 
 

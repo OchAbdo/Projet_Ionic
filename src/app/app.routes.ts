@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs/tabs.page';
+import { authGuardGuard } from './guards/auth-guard-guard';
+import { roleGuard } from './guards/role-guard';
 
 export const routes: Routes = [
 
@@ -18,6 +20,7 @@ export const routes: Routes = [
   {
     path: 'tabs',
     component: TabsPage,
+    canActivate : [authGuardGuard] ,
     children: [
       {
         path: 'tab1',
@@ -48,6 +51,11 @@ export const routes: Routes = [
   {
     path: 'resetpassword',
     loadComponent: () => import('./resetpassword/resetpassword.page').then( m => m.ResetpasswordPage)
+  },
+  {
+    path: 'admin-listuser',
+    loadComponent: () => import('./admin-listuser/admin-listuser.page').then( m => m.AdminListuserPage),
+    canActivate : [roleGuard],
   },
 
 ];
