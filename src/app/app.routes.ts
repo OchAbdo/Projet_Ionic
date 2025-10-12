@@ -2,25 +2,30 @@ import { Routes } from '@angular/router';
 import { TabsPage } from './tabs/tabs.page';
 import { authGuardGuard } from './guards/auth-guard-guard';
 import { roleGuard } from './guards/role-guard';
+import { AdminListuserPage } from './adminH/admin-listuser.page';
+import { roleuserGuard } from './guards/roleuser-guard';
 
 export const routes: Routes = [
 
   {
     path: '',
-    loadComponent: () => import('./home/home.page').then(m => m.HomePage)
+    loadComponent: () => import('./home/home.page').then(m => m.HomePage),
+    canActivate : [authGuardGuard],
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage),
+    canActivate : [authGuardGuard],
   },
   {
     path: 'signup',
-    loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage)
+    loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage),
+    canActivate : [authGuardGuard],
   },
   {
     path: 'tabs',
     component: TabsPage,
-    canActivate : [authGuardGuard] ,
+    canActivate: [roleuserGuard],
     children: [
       {
         path: 'tab1',
@@ -50,12 +55,34 @@ export const routes: Routes = [
   },
   {
     path: 'resetpassword',
-    loadComponent: () => import('./resetpassword/resetpassword.page').then( m => m.ResetpasswordPage)
+    loadComponent: () => import('./resetpassword/resetpassword.page').then(m => m.ResetpasswordPage),
+    canActivate : [authGuardGuard],
   },
   {
     path: 'admin-listuser',
-    loadComponent: () => import('./admin-listuser/admin-listuser.page').then( m => m.AdminListuserPage),
+    component: AdminListuserPage,
     canActivate : [roleGuard],
+    children: [
+      {
+        path: 'adminfilm',
+        loadComponent: () => import('./adminfilm/adminfilm.page').then(m => m.AdminfilmPage)
+      },
+      {
+        path: 'adminuser',
+        loadComponent: () => import('./adminuser/adminuser.page').then(m => m.AdminuserPage)
+      },
+      {
+        path: 'addfilm',
+        loadComponent: () => import('./addfilm/addfilm.page').then(m => m.AddfilmPage)
+      },
+       {
+        path: '',
+        redirectTo: '/admin-listuser/adminuser',
+        pathMatch: 'full',
+      },
+
+    ]
   },
+
 
 ];

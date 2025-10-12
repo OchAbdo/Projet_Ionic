@@ -67,14 +67,16 @@ export class Crecompte {
   }
 
   async getUserData(): Promise<any | null> {
-    const user = this.auth.currentUser; // récupère le user Firebase connecté
+    const user =  this.auth.currentUser; // récupère le user Firebase connecté
     if (!user) return null;
-
-    const docRef = doc(this.firestore, 'users', user.uid); // document par UID
+    
+    const docRef =  doc(this.firestore, 'users', user.uid); // document par UID
     const snap = await getDoc(docRef);
 
+    
+
     if (snap.exists()) {
-      return snap.data; // retourne les données du user
+      return snap.data(); // retourne les données du user
     }
     return null; // si aucun document trouvé
   }
@@ -83,12 +85,24 @@ export class Crecompte {
   isAdmin(): Promise<boolean>{
     return new Promise(async (rslt) =>{
       const user = await this.getUserData();
+      
       if( user.role == "admin")
         rslt(true);
       else
         rslt(false) ;
       })
   }
+
+  isUser(): Promise<boolean>{
+    return new Promise(async (rslt) =>{
+      const user = await this.getUserData();
+      if( user.role =="user")
+        rslt(true);
+      else
+        rslt(false) ;
+      })
+  }
+
 
 
 }

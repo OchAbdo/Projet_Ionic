@@ -14,7 +14,7 @@ export const roleGuard: CanActivateFn = async (route, state) => {
     if(rr)
       return true;
     else
-      rout.navigateByUrl("/tabs");
+      rout.navigateByUrl("/tabs")
       return false;
   }
   else {

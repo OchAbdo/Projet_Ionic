@@ -8,10 +8,14 @@ export const authGuardGuard: CanActivateFn = async (route, state) => {
 
   const isLoggedIn = await auth.isAuthenticated();
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return true; // autoriser
   } else {
-    router.navigate(['/login']); // redirige vers login
+    const role = await auth.isAdmin();
+    if (role)
+    router.navigate(['/admin-listuser']);
+  else
+    router.navigate(['/tabs']);
     return false;
   }
 };

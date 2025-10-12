@@ -37,9 +37,13 @@ export class LoginPage implements OnInit {
       /* console.log('conccection réussie', user);
       const token = await this.auth.getToken();
       console.log(token); */
-
-      this.navigat.navigateByUrl("/tabs/tab1");
-
+      const tf = await this.auth.isAdmin();
+      //console.log(tf);
+      
+      if(!tf)
+        this.navigat.navigateByUrl("/tabs/tab1");
+      else
+        this.navigat.navigateByUrl("/admin-listuser/adminuser");
 
     } catch (err) {
       //console.error('connection invalide', err);

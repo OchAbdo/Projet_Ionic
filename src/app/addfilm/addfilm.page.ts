@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-admin-listuser',
-  templateUrl: './admin-listuser.page.html',
-  styleUrls: ['./admin-listuser.page.scss'],
+  selector: 'app-addfilm',
+  templateUrl: './addfilm.page.html',
+  styleUrls: ['./addfilm.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class AdminListuserPage implements OnInit {
+export class AddfilmPage implements OnInit {
 
   constructor() { }
 
