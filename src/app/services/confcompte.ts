@@ -34,11 +34,11 @@ export class Crecompte {
       createdAt: new Date(),
     });
 
-    return userCre.user ;
+    return [userCre.user , true] ;
   }
 
-   login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password);
+   login(obj : any) {
+    return signInWithEmailAndPassword(this.auth, obj.email, obj.password);
   }
 
   async logout() {
@@ -50,8 +50,8 @@ export class Crecompte {
     return user ? await getIdToken(user) : null;
   }
 
-  async resetPassword(email: string) {
-      await sendPasswordResetEmail(this.auth, email);
+  async resetPassword(obj: any) {
+      await sendPasswordResetEmail(this.auth, obj.email);
   }
 
 

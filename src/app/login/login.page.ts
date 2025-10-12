@@ -4,6 +4,9 @@ import { FormsModule, NgForm } from '@angular/forms';
 /* import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'; */
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular'
+import { Crecompte } from '../services/confcompte';
+import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular'
 
 @Component({
   selector: 'app-login',
@@ -15,20 +18,50 @@ import { IonicModule } from '@ionic/angular'
 export class LoginPage implements OnInit {
 
   constructor() { }
-  navigat = inject(Router)
+  private navigat = inject(Router)
+  private auth = inject(Crecompte);
+  private loadingCtrl = inject(LoadingController);
+  private alertController = inject(AlertController);
 
 
 
-  
-  authcleint(loginf : NgForm)
-  { 
-      if(loginf.valid){
-        console.log(loginf.value)
-      }
-      else{
-        console.log("n'est pas valid")
-      }
-      
+
+  async authclient(loginf: NgForm) {
+    const loading = await this.loadingCtrl.create({
+      message: 'Connection...',
+      spinner: 'crescent',
+    });
+    await loading.present();
+    try {
+      const user = await this.auth.login(loginf.value);
+      /* console.log('conccection réussie', user);
+      const token = await this.auth.getToken();
+      console.log(token); */
+
+      this.navigat.navigateByUrl("/tabs/tab1");
+
+
+    } catch (err) {
+      //console.error('connection invalide', err);
+
+      const alert = await this.alertController.create({
+        header: 'Erreur',
+        message: 'Email ou mot de passe incorrect.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+          },
+        ],
+      });
+
+      await alert.present();
+
+    }
+    finally {
+      loading.dismiss();
+    }
+
   }
 
   ngOnInit() {

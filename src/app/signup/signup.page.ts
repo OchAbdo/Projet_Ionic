@@ -4,8 +4,9 @@ import { FormsModule, NgForm } from '@angular/forms';
 /* import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'; */
 import { IonicModule } from '@ionic/angular';
 import { Photo } from '../services/photo';
-import { image } from 'ionicons/icons';
+import { LoadingController } from '@ionic/angular';
 import { Crecompte } from '../services/confcompte';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,6 +19,8 @@ export class SignupPage implements OnInit {
 
   private photoSer = inject(Photo);
   private logi = inject(Crecompte);
+  private rt = inject(Router);
+  private loadingCtrl = inject(LoadingController);
   photo: string | undefined;
   ngOnInit() {
 
@@ -28,19 +31,30 @@ export class SignupPage implements OnInit {
 
 
 
-   async addUser(inscrption: NgForm) {
-    try {
+  async addUser(inscrption: NgForm) {
 
-      const user = await this.logi.signup(inscrption.value , this.photo);
-      console.log('Inscription réussie', user);
+    const loading = await this.loadingCtrl.create({
+      message: 'Création du compte...',
+      spinner: 'crescent',
+    });
+    await loading.present();
+    try {
+      const user = await this.logi.signup(inscrption.value, this.photo);
+      //console.log('Inscription réussie', user);
       //const token = await this.logi.getToken();
       //console.log(token);
-      
-    } catch (err) {
-        console.error('Erreur', err);
-    }
-  } 
 
-  
+      this.rt.navigateByUrl("/tabs/tab1");
+
+
+    } catch (err) {
+      console.error('Erreur', err);
+    }
+    finally {
+      loading.dismiss();
+    }
+  }
+
+
 
 }
