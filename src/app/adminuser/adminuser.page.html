@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-   <ion-buttons slot="primary">
+    <ion-buttons slot="primary">
       <ion-button (click)="deconnecter()">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
@@ -10,9 +10,29 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">adminuser</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  @if(loading){
+  <ion-loading trigger="open-loading" message="Récupere liste des Utilisateur" duration="10000"></ion-loading>
+  }
+  @else{
+
+  @for(user of users ; track user ){
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <ion-grid fixed>
+          <ion-row class="ion-align-items-start">
+            <ion-col size="2"><ion-thumbnail>
+                <img alt="Silhouette of mountains" [src]="user.image" /></ion-thumbnail></ion-col>
+            <ion-col size="9"><ion-label>
+                <h1> {{user.nom}} {{user.prenom}} </h1>
+                <p> Age: {{user.age}} | Email: {{user.email}} </p>
+              </ion-label></ion-col>
+            <ion-col size="1"><ion-icon name="close-outline"></ion-icon></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  }
+  }
 </ion-content>

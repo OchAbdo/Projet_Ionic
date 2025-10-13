@@ -10,17 +10,17 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./home/home.page').then(m => m.HomePage),
-    canActivate : [authGuardGuard],
+    canActivate: [authGuardGuard],
   },
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then(m => m.LoginPage),
-    canActivate : [authGuardGuard],
+    canActivate: [authGuardGuard],
   },
   {
     path: 'signup',
     loadComponent: () => import('./signup/signup.page').then(m => m.SignupPage),
-    canActivate : [authGuardGuard],
+    canActivate: [authGuardGuard],
   },
   {
     path: 'tabs',
@@ -56,12 +56,12 @@ export const routes: Routes = [
   {
     path: 'resetpassword',
     loadComponent: () => import('./resetpassword/resetpassword.page').then(m => m.ResetpasswordPage),
-    canActivate : [authGuardGuard],
+    canActivate: [authGuardGuard],
   },
   {
     path: 'admin-listuser',
     component: AdminListuserPage,
-    canActivate : [roleGuard],
+    canActivate: [roleGuard],
     children: [
       {
         path: 'adminfilm',
@@ -72,16 +72,17 @@ export const routes: Routes = [
         loadComponent: () => import('./adminuser/adminuser.page').then(m => m.AdminuserPage)
       },
       {
-        path: 'addfilm',
-        loadComponent: () => import('./addfilm/addfilm.page').then(m => m.AddfilmPage)
-      },
-       {
         path: '',
         redirectTo: '/admin-listuser/adminuser',
         pathMatch: 'full',
       },
 
     ]
+  },
+  {
+    path: 'addfilm',
+    loadComponent: () => import('./addfilm/addfilm.page').then(m => m.AddfilmPage),
+    canActivate: [roleGuard]
   },
 
 

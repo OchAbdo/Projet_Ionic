@@ -6,6 +6,7 @@ import{IonicModule} from '@ionic/angular';
 import { Crecompte } from '../services/confcompte';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { FirebaseS } from '../services/firebase-s';
 
 @Component({
   selector: 'app-adminuser',
@@ -19,6 +20,9 @@ export class AdminuserPage implements OnInit {
   private serauth = inject(Crecompte);
   private rt = inject(Router);
   private loadingCtrl = inject(LoadingController);
+  private sevice = inject(FirebaseS);
+  users: any[] = [];
+  loading = true;
 
   async deconnecter(){
     const loading = await this.loadingCtrl.create({
@@ -42,7 +46,12 @@ export class AdminuserPage implements OnInit {
     }
   }
 
-  ngOnInit() {
+
+
+
+  async ngOnInit() {
+    this.users = await this.sevice.getAllUsers();
+    this.loading = false;
   }
 
 }

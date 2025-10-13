@@ -22,7 +22,7 @@ export class AdminfilmPage implements OnInit {
   private rout = inject(Router);
 
   navigateAdd(){
-      this.rout.navigateByUrl("/admin-listuser/addfilm")
+      this.rout.navigateByUrl("/addfilm")
   }
 
 }
