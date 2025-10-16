@@ -10,9 +10,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large" color="primary">adminfilm</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid>
+    <ion-row>
+      @for (film of films; track film; let i = $index) {
+      <ion-col size="6">
+        <ion-card>
+          <img [src]="film.imageUrl" alt="{{ film.title }}" />
+          <ion-card-header>
+            <ion-card-title>{{ film.title }}</ion-card-title>
+            <ion-card-subtitle>
+              {{ film.description }} | {{ film.releaseDate }}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      @if((i + 1) % 2 === 0){
+    <ion-row>  </ion-row>
+      }
+      
+      }
+    </ion-row>
+  </ion-grid>
 </ion-content>

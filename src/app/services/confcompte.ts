@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, getIdToken, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from '@angular/fire/auth';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { Auth, createUserWithEmailAndPassword, getIdToken, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { doc, Firestore, getDoc, setDoc  } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -40,6 +40,7 @@ export class Crecompte {
 
    login(obj : any) {
     return signInWithEmailAndPassword(this.auth, obj.email, obj.password);
+
   }
 
   async logout() {
@@ -70,15 +71,15 @@ export class Crecompte {
     const user =  this.auth.currentUser; // récupère le user Firebase connecté
     if (!user) return null;
     
-    const docRef =  doc(this.firestore, 'users', user.uid); // document par UID
+    const docRef =  doc(this.firestore, 'users', user.uid);
     const snap = await getDoc(docRef);
 
     
 
     if (snap.exists()) {
-      return snap.data(); // retourne les données du user
+      return snap.data(); 
     }
-    return null; // si aucun document trouvé
+    return null; 
   }
 
 

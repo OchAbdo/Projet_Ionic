@@ -9,12 +9,15 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environmentF } from './env/environnemntF';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { vtokenInterceptor } from './app/interceptors/vtoken-interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideHttpClient(withInterceptors([vtokenInterceptor])),
     provideFirebaseApp(() => initializeApp(environmentF.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

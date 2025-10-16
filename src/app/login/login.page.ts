@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular'
 import { Crecompte } from '../services/confcompte';
 import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular'
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginPage implements OnInit {
   private auth = inject(Crecompte);
   private loadingCtrl = inject(LoadingController);
   private alertController = inject(AlertController);
+ private authtt = inject(Auth);
 
 
 
@@ -34,12 +36,17 @@ export class LoginPage implements OnInit {
     await loading.present();
     try {
       const user = await this.auth.login(loginf.value);
+
+      
       /* console.log('conccection réussie', user);
       const token = await this.auth.getToken();
       console.log(token); */
       const tf = await this.auth.isAdmin();
       //console.log(tf);
+      const token = await this.authtt.currentUser?.getIdToken();
+      console.log(token);
       
+       this.authtt
       if(!tf)
         this.navigat.navigateByUrl("/tabs/tab1");
       else

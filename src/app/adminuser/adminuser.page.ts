@@ -47,8 +47,6 @@ export class AdminuserPage implements OnInit {
   }
 
 
-
-
   async ngOnInit() {
     this.users = await this.sevice.getAllUsers();
     this.loading = false;
