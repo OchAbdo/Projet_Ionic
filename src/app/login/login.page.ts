@@ -44,7 +44,8 @@ export class LoginPage implements OnInit {
       const tf = await this.auth.isAdmin();
       //console.log(tf);
       const token = await this.authtt.currentUser?.getIdToken();
-      console.log(token);
+      //console.log(token);
+      loginf.reset();
       
        this.authtt
       if(!tf)

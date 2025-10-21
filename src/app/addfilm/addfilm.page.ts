@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import {IonicModule} from '@ionic/angular'
 import { ApiBack } from '../services/api-back';
@@ -18,9 +18,17 @@ export class AddfilmPage implements OnInit {
   ngOnInit() {
   }
 
-   addFilm() {
-    this.serapi.addFilm({ title: 'Inception' }).subscribe({
-      next: res => console.log('Film ajouté:', res),
+
+  
+
+
+
+   addFilmbyuser(film : NgForm) {
+    this.serapi.addFilm(film.value).subscribe({
+      next: res => {console.log('Film ajouté:', res)
+         
+         film.reset();
+      },
       error: err => console.error('Erreur:', err),
     });
   }

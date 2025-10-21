@@ -1,16 +1,75 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button default-href="admin-listuser/adminfilm"></ion-back-button>
+<ion-header>
+  <ion-toolbar >
+     <ion-buttons slot="start">
+      <ion-back-button default-href="/admin-listuser"></ion-back-button>
     </ion-buttons>
-    <ion-title>Ajouter Film</ion-title>
+    <ion-title>Ajouter un film</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">addfilm</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <form #film = ngForm>
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Titre</ion-label>
+      <ion-input type="text" placeholder="Titre de film" name="title" #title="ngModel" ngModel required></ion-input>
+      @if(title.invalid && title.touched){
+      <div class="error">
+        Donne titre de film!
+      </div>
+      }
+    </ion-item>
+
+     <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Description de film</ion-label>
+      <ion-input type="text" placeholder="Description de film" name="description" #description="ngModel" ngModel required></ion-input>
+      @if(description.invalid && description.touched){
+      <div class="error">
+        Donne Description de film!
+      </div>
+      }
+    </ion-item>
+     <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Image Url</ion-label>
+      <ion-input type="text" placeholder="Image URL" name="imageUrl" #imageUrl="ngModel" ngModel required></ion-input>
+      @if(imageUrl.invalid && imageUrl.touched){
+      <div class="error">
+        Donne Url de image de film!
+      </div>
+      }
+     </ion-item>
+   <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Note /10</ion-label>
+      <ion-input type="number" placeholder="Note" name="rating" #rating="ngModel" ngModel max="10" min="1" required></ion-input>
+      @if(rating.invalid && rating.touched){
+      <div class="error">
+        Donne la note de film entre 1 et 10 !
+      </div>
+      } 
+   </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Genre</ion-label>
+      <ion-input type="text" placeholder="genre" name="categorie" #categorie="ngModel" ngModel required></ion-input>
+      @if(categorie.invalid && categorie.touched){
+      <div class="error">
+        Donne la genre de film!
+      </div>
+      }
+    </ion-item>
+
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked">Date de film</ion-label>
+      <ion-input type="date" placeholder="Date" name="releaseDate" #releaseDate="ngModel" ngModel required></ion-input>
+      @if(releaseDate.invalid && releaseDate.touched){
+      <div class="error">
+        Donne la date de film!
+      </div>
+      }
+    </ion-item>
+
+    <ion-button expand="block" class="register-button" [disabled]="film.invalid" (click)="addFilmbyuser(film)">
+      Ajouter Film
+    </ion-button>
+  </form>
 </ion-content>

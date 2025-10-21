@@ -10,25 +10,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
+  <ion-grid fixed>
     <ion-row>
-      @for (film of films; track film; let i = $index) {
-      <ion-col size="6">
-        <ion-card>
-          <img [src]="film.imageUrl" alt="{{ film.title }}" />
+      @for (film of films; track film) {
+      <ion-col size="6" size-md="4" size-lg="3">
+        <ion-card class="film-card">
+          <div class="image-container">
+            <img [src]="film.imageUrl" alt="{{ film.title }}" />
+          </div>
           <ion-card-header>
             <ion-card-title>{{ film.title }}</ion-card-title>
             <ion-card-subtitle>
-              {{ film.description }} | {{ film.releaseDate }}
+              <div>{{ film.categorie }} | {{ film.releaseDate }} | {{ film.rating }} ★</div>
+              <div class="desc">{{ film.description }}</div>
             </ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
-      @if((i + 1) % 2 === 0){
-    <ion-row>  </ion-row>
-      }
-      
       }
     </ion-row>
   </ion-grid>
+
 </ion-content>

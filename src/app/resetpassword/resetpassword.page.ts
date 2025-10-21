@@ -42,6 +42,7 @@ export class ResetpasswordPage implements OnInit {
       //console.log(token);
 
       //this.rt.navigateByUrl("/tabs/tab1");
+      f.reset();
 
       const alert = await this.alertController.create({
         header: 'Info',

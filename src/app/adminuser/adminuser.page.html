@@ -16,23 +16,38 @@
   @else{
 
   @for(user of users ; track user ){
+    @if(user.role == "user"){
   <ion-card>
     <ion-card-header>
       <ion-card-title>
         <ion-grid fixed>
           <ion-row class="ion-align-items-start">
-            <ion-col size="2"><ion-thumbnail>
+            <ion-col class="ion-padding" size="4"><ion-thumbnail>
                 <img alt="Silhouette of mountains" [src]="user.image" /></ion-thumbnail></ion-col>
-            <ion-col size="9"><ion-label>
+            <ion-col  size="7" class="ion-padding"><ion-label>
                 <h1> {{user.nom}} {{user.prenom}} </h1>
-                <p> Age: {{user.age}} | Email: {{user.email}} </p>
+                <p> Age: {{user.age}} | Email: {{user.email}}</p>
+                <div>
+                  @if(user.disabled){
+                    <p>Etat: Désactiver</p>
+                  }
+                  @else{
+                    <p>Etat: Activer</p>
+                  }
+                </div>
               </ion-label></ion-col>
-            <ion-col size="1"><ion-icon name="close-outline"  ></ion-icon></ion-col>
+              @if(user.disabled){
+                <ion-col size="1"><ion-icon name="checkmark-outline" (click)="activeUser(user.uid)"  ></ion-icon></ion-col>
+              }
+              @else{
+            <ion-col size="1"><ion-icon name="close-outline" (click)="desactiviUser(user.uid)" ></ion-icon></ion-col>
+            }
           </ion-row>
         </ion-grid>
       </ion-card-title>
     </ion-card-header>
   </ion-card>
+  }
   }
   }
 </ion-content>

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, getIdToken, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
-import { doc, Firestore, getDoc, setDoc  } from '@angular/fire/firestore';
+import { doc, Firestore, getDoc, setDoc, updateDoc  } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -9,6 +9,27 @@ import { doc, Firestore, getDoc, setDoc  } from '@angular/fire/firestore';
 export class Crecompte {
   private auth = inject(Auth);
   private firestore = inject(Firestore) 
+
+  async changeetat(uid : string , dis : boolean){
+    const userref = doc(this.firestore , `users/${uid}`);
+    await updateDoc(userref , {
+      disabled : dis ,
+    })
+  }
+
+  async updatefilms(uid : string , films : any){
+    const userref = doc(this.firestore , `users/${uid}`);
+    await updateDoc(userref , {
+      listfav : films ,
+    })
+  }
+
+  
+
+   getuid() : any {
+    return this.auth.currentUser?.uid ;
+  }
+
 
   async signup( userInfo : any , image:any ){
 
@@ -32,6 +53,8 @@ export class Crecompte {
       email: userInfo.email,
       image: image,
       role : "user",
+      disabled : false ,
+      listfav: [],
       createdAt: new Date(),
     });
 
@@ -81,6 +104,9 @@ export class Crecompte {
     }
     return null; 
   }
+
+
+ 
 
 
   isAdmin(): Promise<boolean>{

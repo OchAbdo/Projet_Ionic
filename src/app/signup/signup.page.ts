@@ -44,7 +44,9 @@ export class SignupPage implements OnInit {
       //const token = await this.logi.getToken();
       //console.log(token);
 
+
       this.rt.navigateByUrl("/tabs/tab1");
+      inscrption.reset();
 
 
     } catch (err) {
